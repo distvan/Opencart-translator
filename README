@@ -1,0 +1,19 @@
+You can use the OpencartTranslator class in a PHP-CLI application. You can translate the core english OpenCart to other language.
+Set the init parameters first (see start.php) and run in the command line.
+The OpenCart language constants are in php arrays and this class help you to edit it faster than edit it manually.
+
+OpenCart file structure:
+
+main directory where you installed it/
+
+admin------->language--->english
+catalog----->language--->english
+download
+image
+install
+system
+...
+
+These are the places where you find the base language directory.
+
+
