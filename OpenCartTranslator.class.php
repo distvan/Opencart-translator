@@ -7,6 +7,16 @@ PHP-CLI Class to help OpenCart translation
 
 class OpenCartTranslator
 {
+	const CANNOT_OPEN_FILE 			= 'Cannot open the file:';
+	const CANNOT_WRITE_FILE			= 'Cannot write to file:';
+	const FILE_CANNOT_WRITE 		= 'The file is not writeable !';
+	const DO_U_TRANSLATE_IT 		= 'Do you translate it ?';
+	const NEW_FILE_CREATED			= 'Created new file:';
+	const MIN_REQUIRED_PHP_VER		= 'Minimum PHP5.1+ Required';
+	const ANSWER 					= '(Y)es/(N)o/(Q)uit';
+	const TRANSLATION_NOT_COMPLETE 	= 'The translation is NOT COMPLETED yet, please run the script again !';
+	const TRANSLATION_COMPLETED		= 'Well Done! The translation is completed. Bye!';
+	const IMPRESSUM					= 'If you have any recommendations or questions please contact me! Web: http://dobrenteiistvan.hu';
 
     private  $fromLanguage = '';
     private  $toLanguage = '';
@@ -138,13 +148,13 @@ class OpenCartTranslator
 						{
 			            	if(!$handle = fopen($fileName,'a'))
 							{
-				            	$this->writeLog('Cannot open the file:'.$fileName);
+				            	$this->writeLog(OpenCartTranslator::CANNOT_OPEN_FILE . $fileName);
 				            	exit;
 			             	}
 		            	}
 						else
 						{
-			            	$this->writeLog('The file is not writeable ! '.$fileName);
+			            	$this->writeLog(OpenCartTranslator::FILE_CANNOT_WRITE . $fileName);
 			            	exit;
 		            	}
 		            }
@@ -155,7 +165,7 @@ class OpenCartTranslator
                 	echo $fromText."\n";
 	    	       	do
 					{
-                  	  $answer = $this->promptUser("Do you translate it? Y/N/Q");
+                  	  $answer = $this->promptUser(OpenCartTranslator::DO_U_TRANSLATE_IT . " " . OpenCartTranslator::ANSWER);
 	    	       	}
 					while(($answer != "Y") && ($answer != "N") && ($answer != "Q") );
 	    	        if($answer == "Y")
@@ -207,12 +217,12 @@ class OpenCartTranslator
 				$this->endEntry($handle, $fileName);	
 		   }
 		   fclose($handle);
-	       $this->writeLog("The translation is NOT COMPELTED yet, please run the script again !");
+	       $this->writeLog(OpenCartTranslator::TRANSLATION_NOT_COMPLETE);
 		}else
 		{
-	         $this->writeLog("Well done! The translation is completed! Bye!");
+	         $this->writeLog(OpenCartTranslator::TRANSLATION_COMPLETED);
     	}
-		echo "If you have any question or any recommendation, please contact me.\nWEB: http://dobrenteiistvan.hu\n";
+		echo OpenCartTranslator::IMPRESSUM;
 	    exit;
     }
     
@@ -260,7 +270,7 @@ class OpenCartTranslator
 	{
 	     if (fwrite($handle, $content) === FALSE) 
 		 {
-        	$this->writeLog("Cannot write to file:". $filename);
+        	$this->writeLog(OpenCartTranslator::CANNOT_WRITE_FILE . $filename);
         	exit;
     	 }
     }
@@ -308,7 +318,7 @@ class OpenCartTranslator
 		          fclose($pipe);
 	       }else
 		   {
-		          $this->writeLog('The file is not writeable ! '.$fileName);
+		          $this->writeLog(OpenCartTranslator::FILE_CANNOT_WRITE . $fileName);
 	       }
 	       
 	       return $strip_return;
@@ -374,9 +384,9 @@ class OpenCartTranslator
 		 {
 	         foreach($this->newFiles as $n)
 			 {
-		       	$this->writeLog("Created new file:".$n."\n");
-		      	$file = fopen($n,"w");
-			  	$content = chr(60).chr(63)."\n".chr(63).chr(62);
+		       	$this->writeLog(OpenCartTranslator::NEW_FILE_CREATED . $n . "\n");
+		      	$file = fopen($n, "w");
+			  	$content = chr(60) . chr(63) . "\n" . chr(63) . chr(62);
 			  	$this->writeFile($file, $content, $n);
 		        fclose($file);
 	         }
@@ -393,7 +403,7 @@ class OpenCartTranslator
 	{
 	     if(version_compare(phpversion(),'5.1.0','<') == TRUE)
 		 {
-		      $this->writeLog('Minimum PHP5.1+ Required');		
+		      $this->writeLog(OpenCartTranslator::MIN_REQUIRED_PHP_VER);
 		      exit;		
 	     }
     }
