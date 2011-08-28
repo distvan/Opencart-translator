@@ -6,14 +6,17 @@ OpenCart file structure:
 
 main directory where you installed it/
 
-admin------->language--->english
-catalog----->language--->english
-download
-image
-install
-system
+	admin------->language--->english
+	catalog----->language--->english
+	download
+	image
+	install
+	system
 ...
 
 These are the places where you find the base language directory.
 
 
+TODO:
+- Provide alternatives for translation using Google Translator API
+- better looking and user friendly interface
